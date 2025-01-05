@@ -1,11 +1,10 @@
 import * as Dialog from '@radix-ui/react-dialog'
 import { ArrowCircleDown, ArrowCircleUp, X } from 'phosphor-react'
-import { useContext } from 'react'
 import {
   CloseButton,
   Content,
   Overlay,
-  TransactionType,
+  TransactionTypeComponent,
   TransactionTypeButton,
 } from './styles'
 
@@ -13,7 +12,13 @@ import * as z from 'zod'
 import { Controller, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
-import { TransactionsContext } from '../../contexts/TransactionsContext'
+
+import { transactionService } from '../../lib/axios'
+
+ enum TransactionType {
+  INCOME = 'income',
+  OUTCOME = 'outcome',
+}
 
 const newTransactionFormSchema = z.object({
   description: z.string(),
@@ -25,7 +30,6 @@ const newTransactionFormSchema = z.object({
 type NewTransactionFormInputs = z.infer<typeof newTransactionFormSchema>
 
 export function NewTransactionModal() {
-  const { createTransaction } = useContext(TransactionsContext)
 
   const {
     control,
@@ -40,14 +44,19 @@ export function NewTransactionModal() {
   async function handleCreateNewTransaction(data: NewTransactionFormInputs) {
     const { description, price, type, category } = data
 
-    await createTransaction({
-      description,
-      price,
-      category,
-      type,
-    })
+    try {
+        await transactionService.create({
+            description,
+            price,
+            category,
+            type: type as TransactionType
+        })
+    } catch (error) {
+        console.log('error creating new transaction' ,error)
+    } finally {
+      reset()
+    }
 
-    reset()
   }
   return (
     <Dialog.Portal>
@@ -85,7 +94,7 @@ export function NewTransactionModal() {
             name="type"
             render={({ field }) => {
               return (
-                <TransactionType
+                <TransactionTypeComponent
                   onValueChange={field.onChange}
                   value={field.value}
                 >
@@ -98,7 +107,7 @@ export function NewTransactionModal() {
                     <ArrowCircleDown size={24} />
                     Saida
                   </TransactionTypeButton>
-                </TransactionType>
+                </TransactionTypeComponent>
               )
             }}
           />
