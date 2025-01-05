@@ -1,8 +1,9 @@
-import { useContext } from 'react'
-import { TransactionsContext } from '../contexts/TransactionsContext'
+import { Transaction } from "../@types"
+interface TransactionsProps {
+  transactions: Transaction[]
+}
 
-export function useSummary() {
-  const { transactions } = useContext(TransactionsContext)
+export function useSummary({ transactions }: TransactionsProps) {
 
   const summary = transactions.reduce(
     (acc, transaction) => {

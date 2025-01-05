@@ -4,7 +4,11 @@ import * as Dialog from '@radix-ui/react-dialog'
 import logoImg from '../../assets/Logo.svg'
 import { NewTransactionModal } from '../NewTransactionModal'
 
-export function Header() {
+interface SuccessProps {
+  onSuccess: () => void
+}
+
+export function Header({ onSuccess }: SuccessProps) {
   return (
     <HeaderContainer>
       <HeaderContent>
@@ -15,7 +19,7 @@ export function Header() {
             <NewTransactionsButton>Nova transação</NewTransactionsButton>
           </Dialog.Trigger>
 
-          <NewTransactionModal />
+          <NewTransactionModal onSuccess={onSuccess} />
         </Dialog.Root>
       </HeaderContent>
     </HeaderContainer>

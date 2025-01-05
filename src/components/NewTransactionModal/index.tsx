@@ -1,12 +1,6 @@
 import * as Dialog from '@radix-ui/react-dialog'
 import { ArrowCircleDown, ArrowCircleUp, X } from 'phosphor-react'
-import {
-  CloseButton,
-  Content,
-  Overlay,
-  TransactionTypeComponent,
-  TransactionTypeButton,
-} from './styles'
+import { CloseButton, Content, Overlay, TransactionTypeComponent, TransactionTypeButton } from './styles'
 
 import * as z from 'zod'
 import { Controller, useForm } from 'react-hook-form'
@@ -20,6 +14,10 @@ import { transactionService } from '../../lib/axios'
   OUTCOME = 'outcome',
 }
 
+interface onSuccessProps {
+  onSuccess: () => void
+}
+
 const newTransactionFormSchema = z.object({
   description: z.string(),
   price: z.number(),
@@ -29,7 +27,7 @@ const newTransactionFormSchema = z.object({
 
 type NewTransactionFormInputs = z.infer<typeof newTransactionFormSchema>
 
-export function NewTransactionModal() {
+export function NewTransactionModal({ onSuccess }: onSuccessProps) {
 
   const {
     control,
@@ -55,6 +53,7 @@ export function NewTransactionModal() {
         console.log('error creating new transaction' ,error)
     } finally {
       reset()
+      onSuccess()
     }
 
   }

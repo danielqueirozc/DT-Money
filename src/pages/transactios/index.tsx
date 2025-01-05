@@ -17,20 +17,20 @@ export function Transactions() {
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<Error | null>(null)
 
-  useEffect(() => {
-    async function fetchTransactions() {
-      try {
-        setIsLoading(true)
-        const response = await transactionService.list()
-        setTransactions(response)
-      } catch (error) {
-        setError(error as Error)
-        console.error('Error fetching transactions:', error)
-      } finally {
-        setIsLoading(false)
-      }
+  async function fetchTransactions () {
+    try {
+      setIsLoading(true)
+      const response = await transactionService.list()
+      setTransactions(response)
+    } catch (error) {
+      setError(error as Error)
+      console.error('Erro ao buscar transações:', error)
+    } finally {
+      setIsLoading(false)
     }
-
+  }
+  
+  useEffect(() => {
     fetchTransactions()
   }, [])
 
@@ -39,8 +39,8 @@ export function Transactions() {
 
   return (
     <div>
-      <Header />
-      <Summary />
+      <Header onSuccess={fetchTransactions} />
+      <Summary transactions={transactions} />
 
       <TransactionsContainer>
         <SearchForm />
