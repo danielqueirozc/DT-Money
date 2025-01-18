@@ -2,8 +2,6 @@ import { ArrowCircleUp, ArrowCircleDown, CurrencyDollar } from 'phosphor-react'
 import { useSummary } from '../../hooks/useSummary'
 import { priceFormatter } from '../../utils/formatter'
 
-import { SummaryCard, SummaryConatiner } from './styles'
-
 import { Transaction } from '../../@types'
 
 interface TransactionsProps {
@@ -11,36 +9,42 @@ interface TransactionsProps {
 }
 
 export function Summary({ transactions }: TransactionsProps) {
-  const summary = useSummary({transactions})
+  const summary = useSummary({ transactions })
 
   return (
-    <SummaryConatiner>
-      <SummaryCard>
-        <header>
+    <section className="w-full max-w-[1120px] mx-auto px-6 grid grid-cols-3 gap-8 -mt-20">
+      <div className="bg-gray-700 rounded-lg p-8">
+        <header className="flex items-center justify-between text-gray-300">
           <span>Entradas</span>
           <ArrowCircleUp size={32} color="#00B37E" />
         </header>
 
-        <strong>{priceFormatter.format(summary.income)}</strong>
-      </SummaryCard>
+        <strong className="block mt-4 text-2xl">
+          {priceFormatter.format(summary.income)}
+        </strong>
+      </div>
 
-      <SummaryCard>
-        <header>
-          <span>Saidas</span>
+      <div className="bg-gray-700 rounded-lg p-8">
+        <header className="flex items-center justify-between text-gray-300">
+          <span>Saídas</span>
           <ArrowCircleDown size={32} color="#F75A68" />
         </header>
 
-        <strong>{priceFormatter.format(summary.outcome)}</strong>
-      </SummaryCard>
+        <strong className="block mt-4 text-2xl">
+          {priceFormatter.format(summary.outcome)}
+        </strong>
+      </div>
 
-      <SummaryCard variant="green">
-        <header>
+      <div className="bg-green-700 rounded-lg p-8">
+        <header className="flex items-center justify-between text-gray-300">
           <span>Total</span>
           <CurrencyDollar size={32} color="#fff" />
         </header>
 
-        <strong>{priceFormatter.format(summary.total)}</strong>
-      </SummaryCard>
-    </SummaryConatiner>
+        <strong className="block mt-4 text-2xl">
+          {priceFormatter.format(summary.total)}
+        </strong>
+      </div>
+    </section>
   )
 }

@@ -1,14 +1,21 @@
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+
+import { Login } from './components/login'
+
 import { TransactionsProvider } from './contexts/TransactionsContext'
 import { Transactions } from './pages/transactios'
-import { GlobalStyle } from './styles/global'
 
 export function App() {
   return (
     <div>
-      <GlobalStyle />
-
       <TransactionsProvider>
-        <Transactions />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/transactions" element={<Transactions />} />
+            <Route path="/" element={<Navigate to="/login" />} />
+          </Routes>        
+        </BrowserRouter>
       </TransactionsProvider>
     </div>
   )

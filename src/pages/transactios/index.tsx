@@ -3,11 +3,10 @@ import { Header } from '../../components/header'
 import { Summary } from '../../components/summary'
 import { dateFormatter, priceFormatter } from '../../utils/formatter'
 import { SearchForm } from './components/SearchForm'
-import { PriceHighLight, TransactionsContainer, TransactionsTable,} from './styles'
 import { transactionService } from '../../lib/axios'
 import { Transaction } from '../../@types'
 
- enum TransactionType {
+enum TransactionType {
   INCOME = 'income',
   OUTCOME = 'outcome',
 }
@@ -17,7 +16,7 @@ export function Transactions() {
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<Error | null>(null)
 
-  async function fetchTransactions () {
+  async function fetchTransactions() {
     try {
       setIsLoading(true)
       const response = await transactionService.list()
@@ -29,7 +28,7 @@ export function Transactions() {
       setIsLoading(false)
     }
   }
-  
+
   useEffect(() => {
     fetchTransactions()
   }, [])
@@ -42,29 +41,37 @@ export function Transactions() {
       <Header onSuccess={fetchTransactions} />
       <Summary transactions={transactions} />
 
-      <TransactionsContainer>
+      <main className="w-full max-w-[1120px] mx-auto mt-16 px-6">
         <SearchForm />
 
-        <TransactionsTable>
+        <table className="w-full border-separate border-spacing-y-2 mt-6">
           <tbody>
             {transactions.map((transaction) => (
               <tr key={transaction.id}>
-                <td width="40%">{transaction.description}</td>
-                <td>
-                  <PriceHighLight variant={transaction.type}>
+                <td className="p-5 bg-gray-700 rounded-l-lg" width="40%">
+                  {transaction.description}
+                </td>
+                <td className="p-5 bg-gray-700">
+                  <span
+                    className={`${
+                      transaction.type === TransactionType.INCOME
+                        ? 'text-[#00b37e]'
+                        : 'text-[#f75A68]'
+                    }`}
+                  >
                     {transaction.type === TransactionType.OUTCOME && '- '}
                     {priceFormatter.format(transaction.price)}
-                  </PriceHighLight>
+                  </span>
                 </td>
-                <td>{transaction.category}</td>
-                <td>
+                <td className="p-5 bg-gray-700">{transaction.category}</td>
+                <td className="p-5 bg-gray-700 rounded-r-lg">
                   {dateFormatter.format(new Date(transaction.createdAt!))}
                 </td>
               </tr>
             ))}
           </tbody>
-        </TransactionsTable>
-      </TransactionsContainer>
+        </table>
+      </main>
     </div>
   )
 }

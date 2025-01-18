@@ -1,6 +1,4 @@
-import { HeaderContainer, HeaderContent, NewTransactionsButton } from './styles'
 import * as Dialog from '@radix-ui/react-dialog'
-
 import logoImg from '../../assets/Logo.svg'
 import { NewTransactionModal } from '../NewTransactionModal'
 
@@ -10,18 +8,20 @@ interface SuccessProps {
 
 export function Header({ onSuccess }: SuccessProps) {
   return (
-    <HeaderContainer>
-      <HeaderContent>
-        <img src={logoImg} alt="" />
+    <header className="bg-gray-900 py-10 pb-28">
+      <div className="w-full max-w-[1120px] mx-auto px-6 flex justify-between items-center">
+        <img src={logoImg} alt="Logo" />
 
         <Dialog.Root>
           <Dialog.Trigger asChild>
-            <NewTransactionsButton>Nova transação</NewTransactionsButton>
+            <button className="h-12 border-0 bg-green-500 text-white font-bold px-5 rounded-lg hover:bg-green-700 transition-colors">
+              Nova transação
+            </button>
           </Dialog.Trigger>
 
           <NewTransactionModal onSuccess={onSuccess} />
         </Dialog.Root>
-      </HeaderContent>
-    </HeaderContainer>
+      </div>
+    </header>
   )
 }

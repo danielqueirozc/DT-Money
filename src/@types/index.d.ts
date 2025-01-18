@@ -11,4 +11,12 @@ export enum TransactionType {
     category: string
     createdAt?: Date
   }
-  
+
+  export interface Login {
+    Username: string;
+    Password: string;
+  }
+
+  export interface Register extends Login {
+    ConfirmPassword: string;
+  }
