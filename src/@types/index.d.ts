@@ -1,3 +1,5 @@
+import { Children } from "react"
+
 export enum TransactionType {
     INCOME = 'income',
     OUTCOME = 'outcome',
@@ -19,4 +21,8 @@ export enum TransactionType {
 
   export interface Register extends Login {
     ConfirmPassword: string;
+  }
+
+  export interface ChildrenProps {
+    children: React.ReactNode
   }
