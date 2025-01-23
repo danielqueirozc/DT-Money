@@ -15,8 +15,8 @@ export enum TransactionType {
   }
 
   export interface Login {
-    Username: string;
-    Password: string;
+    username: string;
+    password: string;
   }
 
   export interface Register extends Login {

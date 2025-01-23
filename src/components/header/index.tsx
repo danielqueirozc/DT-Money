@@ -8,13 +8,13 @@ interface SuccessProps {
 
 export function Header({ onSuccess }: SuccessProps) {
   return (
-    <header className="bg-gray-900 py-10 pb-28">
+    <header className="bg-gray900 py-10 pb-28">
       <div className="w-full max-w-[1120px] mx-auto px-6 flex justify-between items-center">
         <img src={logoImg} alt="Logo" />
 
         <Dialog.Root>
           <Dialog.Trigger asChild>
-            <button className="h-12 border-0 bg-green-500 text-white font-bold px-5 rounded-lg hover:bg-green-700 transition-colors">
+            <button className="h-12 border-0 bg-green500 text-white font-bold px-5 rounded-lg hover:bg-green700 transition-colors">
               Nova transação
             </button>
           </Dialog.Trigger>

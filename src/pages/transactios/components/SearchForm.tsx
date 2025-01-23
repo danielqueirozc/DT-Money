@@ -35,13 +35,13 @@ export function SearchForm() {
         type="text"
         placeholder="Busque por transações"
         {...register('query')}
-        className="flex-1 rounded-md border-0 bg-gray-900 text-gray-300 p-4 placeholder-gray-500"
+        className="flex-1 rounded-md border-0 bg-gray900 text-gray300 p-4 placeholder-gray500"
       />
 
       <button
         type="submit"
         disabled={isSubmitting}
-        className="flex items-center gap-3 border-0 p-4 bg-transparent border border-green-300 text-green-300 font-bold rounded-md cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed hover:bg-green-500 hover:border-green-500 hover:text-white transition-colors"
+        className="flex items-center gap-3 border-0 p-4 bg-transparent border-green300 text-green300 font-bold rounded-md cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed hover:bg-green500 hover:border-green500 hover:text-white transition-colors"
       >
         <MagnifyingGlass size={20} />
         Buscar

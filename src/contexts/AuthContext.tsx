@@ -26,9 +26,9 @@ export function AuthProvider({ children }: ChildrenProps) {
     useEffect(() => {
         const token = localStorage.getItem('token')
         if (token) {
-            const payload = JSON.parse(atob(token.split('.')[1]));
-            const expirationTime = payload.exp * 1000; // convert to milliseconds
-            const currentTime = Date.now(); // get current time
+            const payload = JSON.parse(atob(token.split('.')[1])) // divide the token into 3 parts
+            const expirationTime = payload.exp * 1000 // convert to milliseconds
+            const currentTime = Date.now() // get current time
             if (expirationTime > currentTime) {
                 setUser({id: payload.id, username: payload.username})
             }

@@ -3,7 +3,7 @@ import { Header } from '../../components/header'
 import { Summary } from '../../components/summary'
 import { dateFormatter, priceFormatter } from '../../utils/formatter'
 import { SearchForm } from './components/SearchForm'
-import { transactionService } from '../../lib/axios'
+import { authService, transactionService } from '../../lib/axios'
 import { Transaction } from '../../@types'
 
 enum TransactionType {
@@ -17,6 +17,11 @@ export function Transactions() {
   const [error, setError] = useState<Error | null>(null)
 
   async function fetchTransactions() {
+    if (!authService.isAuthenticated()) {
+      window.location.href = '/login'
+      return
+    }
+
     try {
       setIsLoading(true)
       const response = await transactionService.list()
@@ -48,10 +53,10 @@ export function Transactions() {
           <tbody>
             {transactions.map((transaction) => (
               <tr key={transaction.id}>
-                <td className="p-5 bg-gray-700 rounded-l-lg" width="40%">
+                <td className="p-5 bg-gray700 rounded-l-lg" width="40%">
                   {transaction.description}
                 </td>
-                <td className="p-5 bg-gray-700">
+                <td className="p-5 bg-gray700">
                   <span
                     className={`${
                       transaction.type === TransactionType.INCOME
@@ -63,8 +68,8 @@ export function Transactions() {
                     {priceFormatter.format(transaction.price)}
                   </span>
                 </td>
-                <td className="p-5 bg-gray-700">{transaction.category}</td>
-                <td className="p-5 bg-gray-700 rounded-r-lg">
+                <td className="p-5 bg-gray700">{transaction.category}</td>
+                <td className="p-5 bg-gray700 rounded-r-lg">
                   {dateFormatter.format(new Date(transaction.createdAt!))}
                 </td>
               </tr>

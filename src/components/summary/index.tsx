@@ -13,8 +13,8 @@ export function Summary({ transactions }: TransactionsProps) {
 
   return (
     <section className="w-full max-w-[1120px] mx-auto px-6 grid grid-cols-3 gap-8 -mt-20">
-      <div className="bg-gray-700 rounded-lg p-8">
-        <header className="flex items-center justify-between text-gray-300">
+      <div className="bg-gray700 rounded-lg p-8">
+        <header className="flex items-center justify-between text-gray300">
           <span>Entradas</span>
           <ArrowCircleUp size={32} color="#00B37E" />
         </header>
@@ -24,8 +24,8 @@ export function Summary({ transactions }: TransactionsProps) {
         </strong>
       </div>
 
-      <div className="bg-gray-700 rounded-lg p-8">
-        <header className="flex items-center justify-between text-gray-300">
+      <div className="bg-gray700 rounded-lg p-8">
+        <header className="flex items-center justify-between text-gray300">
           <span>Saídas</span>
           <ArrowCircleDown size={32} color="#F75A68" />
         </header>
@@ -35,8 +35,8 @@ export function Summary({ transactions }: TransactionsProps) {
         </strong>
       </div>
 
-      <div className="bg-green-700 rounded-lg p-8">
-        <header className="flex items-center justify-between text-gray-300">
+      <div className="bg-green700 rounded-lg p-8">
+        <header className="flex items-center justify-between text-gray300">
           <span>Total</span>
           <CurrencyDollar size={32} color="#fff" />
         </header>
